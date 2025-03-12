@@ -15,6 +15,7 @@ import {
   Calendar,
   ChevronLeft,
   Info,
+  Share,
 } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -37,9 +38,8 @@ const ScrollAnimation = ({ children, className = "" }) => {
   return (
     <div
       ref={setRef}
-      className={`transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      } ${className}`}
+      className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        } ${className}`}
     >
       {children}
     </div>
@@ -65,7 +65,11 @@ const FloatingParticles = () => {
   );
 };
 
-const Header = ({ isScrolled }) => {
+interface HeaderProps {
+  isScrolled: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
     "Inicio",
@@ -81,7 +85,7 @@ const Header = ({ isScrolled }) => {
       ${isScrolled || isMenuOpen
           ? "bg-white shadow-lg"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
@@ -95,9 +99,8 @@ const Header = ({ isScrolled }) => {
                 className="transform transition-transform group-hover:scale-110 duration-300 object-contain bg-white/80 p-1 rounded-full w-full h-full"
               />
             </div>
-            <span className={`text-xl sm:text-2xl font-bold tracking-wider ${
-              isScrolled || isMenuOpen ? 'text-sky-800' : 'text-white'
-            }`}>
+            <span className={`text-xl sm:text-2xl font-bold tracking-wider ${isScrolled || isMenuOpen ? 'text-sky-800' : 'text-white'
+              }`}>
               El Rodeo
             </span>
           </a>
@@ -108,8 +111,8 @@ const Header = ({ isScrolled }) => {
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 className={`relative px-4 py-2 transition-all duration-300 group
-                  ${isScrolled 
-                    ? 'text-stone-700 hover:text-[#e8c05c]' 
+                  ${isScrolled
+                    ? 'text-stone-700 hover:text-[#e8c05c]'
                     : 'text-white hover:text-[#e8c05c]'}`}
               >
                 <span className="relative z-10">{item}</span>
@@ -124,24 +127,21 @@ const Header = ({ isScrolled }) => {
           >
             <div className="relative transform transition-all duration-300">
               {isMenuOpen ? (
-                <X className={`w-6 h-6 transition-colors duration-300 ${
-                  isScrolled || isMenuOpen ? 'text-stone-700' : 'text-white'
-                }`} />
+                <X className={`w-6 h-6 transition-colors duration-300 ${isScrolled || isMenuOpen ? 'text-stone-700' : 'text-white'
+                  }`} />
               ) : (
-                <MenuIcon className={`w-6 h-6 transition-colors duration-300 ${
-                  isScrolled || isMenuOpen ? 'text-stone-700' : 'text-white'
-                }`} />
+                <MenuIcon className={`w-6 h-6 transition-colors duration-300 ${isScrolled || isMenuOpen ? 'text-stone-700' : 'text-white'
+                  }`} />
               )}
             </div>
           </button>
         </div>
 
         <div
-          className={`md:hidden fixed inset-0 bg-white transition-all duration-300 ${
-            isMenuOpen
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 -translate-y-full pointer-events-none"
-          }`}
+          className={`md:hidden fixed inset-0 bg-white transition-all duration-300 ${isMenuOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-full pointer-events-none"
+            }`}
           style={{ top: '0', zIndex: 40 }}
         >
           <div className="pt-24 px-4 pb-6">
@@ -179,7 +179,7 @@ const Hero = () => (
       />
       {/* Overlay oscuro para mejorar la legibilidad */}
       <div className="absolute inset-0 bg-black/40"></div>
-      
+
       {/* Patrón de fondo animado */}
       <div className="absolute inset-0 opacity-10 bg-grid-pattern animate-grid"></div>
     </div>
@@ -241,7 +241,7 @@ const Hero = () => (
             <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             <div className="absolute inset-0 bg-gradient-to-r from-white to-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
-          
+
           <a
             href="#contacto"
             className="group relative inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white border-2 border-white/20 rounded-full font-semibold overflow-hidden transition-all duration-300 hover:border-white/40 hover:shadow-lg hover:shadow-white/10"
@@ -256,7 +256,7 @@ const Hero = () => (
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <div className="w-8 h-12 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
           <div className="w-1 h-3 bg-white/60 rounded-full animate-scroll"></div>
-    </div>
+        </div>
       </div>
     </div>
   </section>
@@ -268,7 +268,7 @@ const ProductDetail = ({ isOpen, onClose, product }) => {
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
-      
+
       <div className="relative min-h-screen flex items-center justify-center p-4">
         <div className="relative bg-white rounded-2xl max-w-4xl w-full shadow-2xl transform transition-all">
           <button
@@ -289,7 +289,7 @@ const ProductDetail = ({ isOpen, onClose, product }) => {
                 {product.discount && (
                   <div className="absolute top-4 right-4 bg-[#e8c05c] text-stone-800 px-3 py-1 rounded-full font-medium">
                     {product.discount}% OFF
-    </div>
+                  </div>
                 )}
               </div>
               <div className="grid grid-cols-4 gap-2">
@@ -313,9 +313,8 @@ const ProductDetail = ({ isOpen, onClose, product }) => {
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`w-5 h-5 ${
-                          i < 4 ? "text-[#e8c05c] fill-[#e8c05c]" : "text-gray-300"
-                        }`}
+                        className={`w-5 h-5 ${i < 4 ? "text-[#e8c05c] fill-[#e8c05c]" : "text-gray-300"
+                          }`}
                       />
                     ))}
                   </div>
@@ -374,7 +373,7 @@ const CartScreen = ({ isOpen, onClose }) => {
       name: "Alimento Premium para Perros",
       price: 1999,
       quantity: 2,
-      image: "/api/placeholder/400/300",
+      image: "/perro.png",
     },
     // ... más items
   ]);
@@ -384,82 +383,120 @@ const CartScreen = ({ isOpen, onClose }) => {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
-      
-      <div className="relative min-h-screen flex justify-end">
-        <div className="relative bg-white w-full max-w-md h-full shadow-2xl">
-          <div className="flex flex-col h-full">
-            <div className="p-6 border-b">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-stone-800">
-                  Carrito de Compras
-                </h2>
-                <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={onClose}
+          />
 
-            <div className="flex-1 overflow-y-auto p-6">
-              {cartItems.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="text-gray-400 mb-4">
-                    <ShoppingCart className="w-12 h-12 mx-auto" />
+          <motion.div
+            className="relative bg-white w-full max-w-2xl rounded-2xl shadow-2xl m-4"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ type: "spring", duration: 0.5 }}
+          >
+            <div className="flex flex-col max-h-[90vh]">
+              {/* Encabezado */}
+              <div className="p-6 border-b sticky top-0 bg-white rounded-t-2xl z-10">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <ShoppingCart className="w-6 h-6 text-[#e8c05c]" />
+                    <h2 className="text-2xl font-bold text-stone-800">
+                      Carrito de Compras
+                    </h2>
                   </div>
-                  <p className="text-gray-600">Tu carrito está vacío</p>
+                  <button
+                    onClick={onClose}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    <X className="w-6 h-6 text-gray-500" />
+                  </button>
                 </div>
-              ) : (
-                <div className="space-y-6">
-                  {cartItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex gap-4 p-4 bg-white rounded-lg border hover:shadow-md transition-shadow"
-                    >
-                      <div className="w-20 h-20 rounded-lg overflow-hidden">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-medium text-stone-800">{item.name}</h3>
-                        <p className="text-[#e8c05c] font-bold">
-                          ${item.price.toFixed(2)}
-                        </p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <button className="p-1 hover:bg-gray-100 rounded">
-                            -
-                          </button>
-                          <span className="w-8 text-center">{item.quantity}</span>
-                          <button className="p-1 hover:bg-gray-100 rounded">
-                            +
-                          </button>
-                        </div>
-                      </div>
-                      <button className="text-gray-400 hover:text-red-500">
-                        <X className="w-5 h-5" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="border-t p-6 space-y-4">
-              <div className="flex justify-between items-center text-lg font-bold">
-                <span>Total:</span>
-                <span className="text-[#e8c05c]">${total.toFixed(2)}</span>
               </div>
-              <button className="w-full bg-[#e8c05c] text-stone-800 py-3 rounded-lg font-semibold hover:bg-[#e8c05c]/90 transition-colors">
-                Proceder al pago
-              </button>
+
+              {/* Contenido */}
+              <div className="flex-1 overflow-y-auto p-6">
+                {cartItems.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="text-gray-400 mb-4">
+                      <ShoppingCart className="w-16 h-16 mx-auto" />
+                    </div>
+                    <p className="text-xl text-gray-600 font-medium">Tu carrito está vacío</p>
+                    <p className="text-gray-500 mt-2">¡Agrega algunos productos!</p>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    {cartItems.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        className="flex gap-4 p-4 bg-white rounded-xl border hover:shadow-md transition-shadow"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <div className="w-24 h-24 rounded-lg overflow-hidden bg-gray-100">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium text-lg text-stone-800">{item.name}</h3>
+                          <p className="text-[#e8c05c] text-xl font-bold mt-1">
+                            ${item.price.toFixed(2)}
+                          </p>
+                          <div className="flex items-center gap-4 mt-3">
+                            <div className="flex items-center border rounded-lg bg-gray-50">
+                              <button className="p-2 hover:bg-gray-100 rounded-l-lg text-gray-600 hover:text-gray-800">
+                                -
+                              </button>
+                              <span className="w-12 text-center font-medium">{item.quantity}</span>
+                              <button className="p-2 hover:bg-gray-100 rounded-r-lg text-gray-600 hover:text-gray-800">
+                                +
+                              </button>
+                            </div>
+                            <button className="text-gray-400 hover:text-red-500 p-2 rounded-full hover:bg-red-50 transition-colors">
+                              <X className="w-5 h-5" />
+                            </button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Footer con total y botón de pago */}
+              <div className="border-t p-6 bg-gray-50 rounded-b-2xl">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center text-lg">
+                    <span className="text-gray-600">Subtotal:</span>
+                    <span className="font-medium">${total.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xl font-bold">
+                    <span>Total:</span>
+                    <span className="text-[#e8c05c]">${total.toFixed(2)}</span>
+                  </div>
+                  <button className="w-full bg-[#e8c05c] text-stone-800 py-4 rounded-xl font-semibold text-lg hover:bg-[#e8c05c]/90 transition-colors flex items-center justify-center gap-2">
+                    <ShoppingCart className="w-5 h-5" />
+                    Proceder al pago
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
@@ -469,43 +506,43 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-    <div
-      className="group relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-2"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="relative h-64 overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-          <button className="w-full bg-[#e8c05c] text-stone-800 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#e8c05c]/90 transition-colors">
-            <ShoppingCart className="w-5 h-5" />
-            <span>Agregar al carrito</span>
-          </button>
-        </div>
-      </div>
-
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-xl font-bold text-stone-800 group-hover:text-[#e8c05c] transition-colors">
-            {product.name}
-          </h3>
-          <div className="flex items-center gap-1">
-            <Star className="w-5 h-5 fill-[#e8c05c] text-[#e8c05c]" />
-            <span className="text-stone-600">4.8</span>
+      <div
+        className="group relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-2"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="relative h-64 overflow-hidden">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+            <button className="w-full bg-[#e8c05c] text-stone-800 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#e8c05c]/90 transition-colors">
+              <ShoppingCart className="w-5 h-5" />
+              <span>Agregar al carrito</span>
+            </button>
           </div>
         </div>
-        <p className="text-stone-600 mb-4">{product.description}</p>
-        <div className="flex justify-between items-center">
+
+        <div className="p-6">
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="text-xl font-bold text-stone-800 group-hover:text-[#e8c05c] transition-colors">
+              {product.name}
+            </h3>
+            <div className="flex items-center gap-1">
+              <Star className="w-5 h-5 fill-[#e8c05c] text-[#e8c05c]" />
+              <span className="text-stone-600">4.8</span>
+            </div>
+          </div>
+          <p className="text-stone-600 mb-4">{product.description}</p>
+          <div className="flex justify-between items-center">
             <div className="flex flex-col gap-1">
-          <p className="text-2xl font-bold text-[#e8c05c]">
-            ${product.price.toFixed(2)}
-          </p>
-          <span className="text-sm text-stone-500">Stock disponible</span>
+              <p className="text-2xl font-bold text-[#e8c05c]">
+                ${product.price.toFixed(2)}
+              </p>
+              <span className="text-sm text-stone-500">Stock disponible</span>
             </div>
             <button
               onClick={() => setShowDetails(true)}
@@ -514,15 +551,15 @@ const ProductCard = ({ product }) => {
               Ver detalles
               <ChevronRight className="w-4 h-4" />
             </button>
+          </div>
+        </div>
+
+        <div className="absolute top-4 right-4">
+          <span className="bg-[#e8c05c] text-stone-800 px-3 py-1 rounded-full text-sm font-medium">
+            Nuevo
+          </span>
         </div>
       </div>
-
-      <div className="absolute top-4 right-4">
-        <span className="bg-[#e8c05c] text-stone-800 px-3 py-1 rounded-full text-sm font-medium">
-          Nuevo
-        </span>
-      </div>
-    </div>
 
       <ProductDetail
         isOpen={showDetails}
@@ -742,11 +779,10 @@ const BusinessHours = () => {
                       </span>
                     </div>
                     <span
-                      className={`font-semibold ${
-                        item.hours === "Cerrado"
-                          ? "text-red-500"
-                          : "text-sky-600"
-                      }`}
+                      className={`font-semibold ${item.hours === "Cerrado"
+                        ? "text-red-500"
+                        : "text-sky-600"
+                        }`}
                     >
                       {item.hours}
                     </span>
@@ -768,7 +804,7 @@ const BusinessHours = () => {
 
               <div className="space-y-4">
                 <div className="aspect-video rounded-lg overflow-hidden bg-gray-100 transform transition-all duration-500 hover:scale-105">
-                <iframe src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2smx!4v1741735974080!5m2!1ses-419!2smx!6m8!1m7!1s2m6PEWrc1jaCv2Cy9UEYrg!2m2!1d25.6667844364426!2d-97.83366767312474!3f167.31260196024982!4f1.7127119688666994!5f0.7820865974627469" width="600" height="450" style={{border:0}} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                  <iframe src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2smx!4v1741735974080!5m2!1ses-419!2smx!6m8!1m7!1s2m6PEWrc1jaCv2Cy9UEYrg!2m2!1d25.6667844364426!2d-97.83366767312474!3f167.31260196024982!4f1.7127119688666994!5f0.7820865974627469" width="600" height="450" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
                 <ScrollAnimation className="space-y-2">
@@ -822,54 +858,52 @@ const FloatingCart = () => {
 
   return (
     <>
-    <div className="fixed bottom-6 right-6 z-50">
-      <div
-        className={`absolute bottom-full right-0 mb-2 transition-all duration-300 ${
-          isOpen
+      <div className="fixed bottom-6 right-6 z-50">
+        <div
+          className={`absolute bottom-full right-0 mb-2 transition-all duration-300 ${isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-2 pointer-events-none"
-        }`}
-      >
+            }`}
+        >
           <div className="bg-white p-4 rounded-lg shadow-xl border-2 border-sky-200 min-w-[250px]">
-          {cartItems.length === 0 ? (
+            {cartItems.length === 0 ? (
               <p className="text-sky-800 text-center">Tu carrito está vacío</p>
-          ) : (
-            <div className="space-y-2">
-              {/* Aquí irían los items del carrito */}
-            </div>
-          )}
+            ) : (
+              <div className="space-y-2">
+                {/* Aquí irían los items del carrito */}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      <button
+        <button
           onClick={() => setShowCartScreen(true)}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           className={`bg-[#e8c05c] p-4 rounded-full shadow-lg transition-all duration-300 relative group
             ${isHovered ? "bg-[#e8c05c]/90 scale-110" : ""}
             hover:shadow-[#e8c05c]/20 hover:shadow-xl`}
         >
           <ShoppingCart className="w-6 h-6 text-white" />
 
-        {cartItems.length > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm animate-bounce">
-            {cartItems.length}
-          </span>
-        )}
+          {cartItems.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm animate-bounce">
+              {cartItems.length}
+            </span>
+          )}
 
-        <span
+          <span
             className={`absolute whitespace-nowrap right-full mr-2 bg-sky-800 text-white px-3 py-1 rounded-lg text-sm transition-all duration-300
-          ${
-            isHovered
-              ? "opacity-100 -translate-x-2"
-              : "opacity-0 translate-x-2 pointer-events-none"
-          }
+          ${isHovered
+                ? "opacity-100 -translate-x-2"
+                : "opacity-0 translate-x-2 pointer-events-none"
+              }
         `}
-        >
-          Ver carrito
-        </span>
-      </button>
-    </div>
+          >
+            Ver carrito
+          </span>
+        </button>
+      </div>
 
       <CartScreen
         isOpen={showCartScreen}
@@ -934,9 +968,9 @@ const AboutUs = () => {
           <ScrollAnimation className="space-y-6">
             <div className="relative overflow-hidden rounded-xl shadow-xl">
               <Image
-                width={10}
-                height={10}
-                src="/api/placeholder/600/400"
+                width={500}
+                height={500}
+                src="/cover.jpg"
                 alt="Nuestra tienda"
                 className="w-full h-[400px] object-cover hover:scale-110 transition-transform duration-700"
               />
@@ -975,7 +1009,7 @@ const AboutUs = () => {
 
             <ScrollAnimation className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div className="bg-indigo-500 p-4 rounded-lg text-center text-white transform hover:scale-105 transition-all duration-300">
-                <div className="text-3xl font-bold mb-1">20+</div>
+                <div className="text-3xl font-bold mb-1">15+</div>
                 <div className="text-sm">Años de Experiencia</div>
               </div>
               <div className="bg-sky-400 p-4 rounded-lg text-center text-white transform hover:scale-105 transition-all duration-300">
@@ -1038,379 +1072,6 @@ const AboutUs = () => {
   );
 };
 
-// interface Event {
-//   id: number;
-//   title: string;
-//   description: string;
-//   category: string;
-//   date: Date;
-//   location: string;
-//   time: string;
-// }
-
-// interface Category {
-//   name: string;
-//   color: string;
-// }
-
-// const CalendarRSE = () => {
-//   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-//   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-//   const [selectedDay, setSelectedDay] = useState<number | null>(null);
-//   const [showModal, setShowModal] = useState<boolean>(false);
-//   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-
-//   // Categorías de actividades
-//   const categories: Record<string, Category> = {
-//     capacitacion: { name: "Capacitación Comunitaria", color: "bg-blue-500" },
-//     sostenibilidad: { name: "Sostenibilidad y Cuidado Ambiental", color: "bg-green-500" },
-//     apoyo: { name: "Apoyo a Pequeños Productores", color: "bg-amber-500" }
-//   };
-
-//   // Eventos para la demostración
-//   const events: Event[]= [
-//     {
-//       id: 1,
-//       title: "Taller de Alimentación Animal",
-//       description: "Taller gratuito sobre el manejo de la alimentación animal y su impacto en la salud y productividad.",
-//       category: "capacitacion",
-//       date: new Date("2025-03-05T05:00:00.000"),
-//       location: "Centro Comunitario",
-//       time: "10:00 - 12:00"
-//     },
-//     {
-//       id: 2,
-//       title: "Charla con Expertos",
-//       description: "Charla sobre la importancia del bienestar animal y su relación con la producción sostenible.",
-//       category: "capacitacion",
-//       date: new Date("2025-03-12T05:00:00.000"),
-//       location: "Auditorio Principal",
-//       time: "15:00 - 17:00"
-//     },
-//     {
-//       id: 3,
-//       title: "Programa de Reciclaje",
-//       description: "Lanzamiento del programa de reciclaje de empaques de alimentos y bolsas plásticas.",
-//       category: "sostenibilidad",
-//       date: new Date("2025-03-08T05:00:00.000"),
-//       location: "Plaza Central",
-//       time: "09:00 - 18:00"
-//     },
-//     {
-//       id: 4,
-//       title: "Capacitación en Insumos Ecológicos",
-//       description: "Fomento del uso de empaques biodegradables y productos naturales para el cuidado animal.",
-//       category: "sostenibilidad",
-//       date: new Date("2025-03-15T05:00:00.000"),
-//       location: "Salón Verde",
-//       time: "14:00 - 16:00"
-//     },
-//     {
-//       id: 5,
-//       title: "Descuentos para Productores",
-//       description: "Inicio del programa de descuentos y facilidades de pago para productores locales.",
-//       category: "apoyo",
-//       date: new Date("2025-03-20T05:00:00.000"),
-//       location: "Tienda Principal",
-//       time: "Todo el día"
-//     },
-//     {
-//       id: 6,
-//       title: "Taller de Comercialización Digital",
-//       description: "Taller sobre el uso de la plataforma digital para ofrecer productos y servicios en línea.",
-//       category: "apoyo",
-//       date: new Date("2025-03-22T05:00:00.000"),
-//       location: "Centro de Capacitación",
-//       time: "11:00 - 13:00"
-//     },
-//     {
-//       id: 7,
-//       title: "Colaboración con Agricultores",
-//       description: "Reunión para promover la rotación de cultivos y el uso de fertilizantes orgánicos.",
-//       category: "sostenibilidad",
-//       date: new Date("2025-03-28T05:00:00.000"),
-//       location: "Granja Modelo",
-//       time: "09:00 - 12:00"
-//     },
-//     {
-//       id: 8,
-//       title: "Asesoramiento Financiero",
-//       description: "Alianzas con instituciones locales para brindar asesoramiento y financiamiento a pequeños ganaderos.",
-//       category: "apoyo",
-//       date: new Date("2025-03-25T05:00:00.000"),
-//       location: "Sala de Conferencias",
-//       time: "16:00 - 18:00"
-//     }
-//   ];
-
-//   // Nombres de los meses
-//   const monthNames = [
-//     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-//     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-//   ];
-
-//   // Nombres de los días
-//   const dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
-
-//   // Obtener el número de días en el mes
-//   const getDaysInMonth = (month: number, year: number) => {
-//     return new Date(year, month + 1, 0).getDate();
-//   };
-
-//   // Obtener el día de la semana del primer día del mes
-//   const getFirstDayOfMonth = (month: number, year: number) => {
-//     return new Date(year, month, 1).getDay();
-//   };
-
-//   // Cambiar al mes anterior
-//   const prevMonth = () => {
-//     if (currentMonth === 0) {
-//       setCurrentMonth(11);
-//       setCurrentYear(currentYear - 1);
-//     } else {
-//       setCurrentMonth(currentMonth - 1);
-//     }
-//   };
-
-//   // Cambiar al mes siguiente
-//   const nextMonth = () => {
-//     if (currentMonth === 11) {
-//       setCurrentMonth(0);
-//       setCurrentYear(currentYear + 1);
-//     } else {
-//       setCurrentMonth(currentMonth + 1);
-//     }
-//   };
-
-//   // Obtener eventos para un día específico
-//   const getEventsForDay = (day: number) => {
-//     return events.filter(event => 
-//       event.date.getDate() === day && 
-//       event.date.getMonth() === currentMonth && 
-//       event.date.getFullYear() === currentYear
-//     );
-//   };
-
-//   // Mostrar detalles del evento
-//   const showEventDetails = (event: Event) => {
-//     setSelectedEvent(event);
-//     setShowModal(true);
-//   };
-
-//   // Renderizar los días del calendario
-//   const renderCalendarDays = () => {
-//     const daysInMonth = getDaysInMonth(currentMonth, currentYear);
-//     const firstDayOfMonth = getFirstDayOfMonth(currentMonth, currentYear);
-    
-//     const days = [];
-    
-//     // Días vacíos al inicio
-//     for (let i = 0; i < firstDayOfMonth; i++) {
-//       days.push(<div key={`empty-${i}`} className="h-24 border border-gray-400"></div>);
-//     }
-    
-//     // Días del mes
-//     for (let day = 1; day <= daysInMonth; day++) {
-//       const dayEvents = getEventsForDay(day);
-//       const isSelected = selectedDay === day;
-      
-//       days.push(
-//         <div 
-//           key={day} 
-//           className={`h-24 border border-gray-400 p-1 overflow-hidden ${isSelected ? 'bg-[#e8c05c] opacity-80' : ''}`}
-//           onClick={() => setSelectedDay(day)}
-//         >
-//           <div className="font-semibold text-gray-800">{day}</div>
-//           <div className="space-y-1 mt-1">
-//             {dayEvents.slice(0, 2).map(event => (
-//               <div 
-//                 key={event.id}
-//                 className={`text-xs p-1 rounded cursor-pointer text-white truncate ${categories[event.category].color}`}
-//                 onClick={(e) => {
-//                   e.stopPropagation();
-//                   showEventDetails(event);
-//                 }}
-//               >
-//                 {event.title}
-//               </div>
-//             ))}
-//             {dayEvents.length > 2 && (
-//               <div 
-//                 className="text-xs text-gray-700 cursor-pointer flex items-center"
-//                 onClick={(e) => {
-//                   e.stopPropagation();
-//                   setSelectedDay(day);
-//                 }}
-//               >
-//                 <span className="mr-1">+{dayEvents.length - 2} más</span>
-//                 <Info size={12} />
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       );
-//     }
-    
-//     return days;
-//   };
-
-//   // Modal para mostrar los detalles del evento
-//   const EventModal = () => {
-//     if (!selectedEvent) return null;
-    
-//     return (
-//       <div className="fixed inset-0 flex items-center justify-center z-50 bg-[#c2c2c290]">
-//         <div className="bg-white rounded-lg p-6 max-w-md w-full">
-//           <div className="flex justify-between items-center mb-4">
-//             <h2 className="text-xl font-bold text-sky-800">{selectedEvent.title}</h2>
-//             <button 
-//               className="text-gray-500 hover:text-gray-700"
-//               onClick={() => setShowModal(false)}
-//             >
-//               ✕
-//             </button>
-//           </div>
-          
-//           <div className="mb-4">
-//             <span className={`px-2 py-1 rounded text-xs text-white ${categories[selectedEvent.category].color}`}>
-//               {categories[selectedEvent.category].name}
-//             </span>
-//           </div>
-          
-//           <p className="mb-4 text-gray-700">{selectedEvent.description}</p>
-          
-//           <div className="grid grid-cols-2 gap-2 text-sm">
-//             <div>
-//               <strong className="block text-gray-500">Fecha:</strong>
-//               <span className="text-gray-800">{selectedEvent.date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-//             </div>
-//             <div>
-//               <strong className="block text-gray-500">Hora:</strong>
-//               <span className="text-gray-800">{selectedEvent.time}</span>
-//             </div>
-//             <div>
-//               <strong className="block text-gray-500">Ubicación:</strong>
-//               <span className="text-gray-800">{selectedEvent.location}</span>
-//             </div>
-//           </div>
-          
-//           <button 
-//             className="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-//             onClick={() => setShowModal(false)}
-//           >
-//             Cerrar
-//           </button>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   // Lista de eventos para el día seleccionado
-//   const EventsList = () => {
-//     if (!selectedDay) return null;
-    
-//     const dayEvents = getEventsForDay(selectedDay);
-    
-//     if (dayEvents.length === 0) {
-//       return (
-//         <div className="p-4 bg-gray-50 rounded-lg">
-//           <p className="text-center text-gray-600">No hay eventos programados para este día.</p>
-//         </div>
-//       );
-//     }
-    
-//     return (
-//       <div className="bg-gray-50 rounded-lg overflow-hidden">
-//         <div className="p-3 bg-amber-700">
-//           <h3 className="font-semibold text-white">
-//             Eventos para el {selectedDay} de {monthNames[currentMonth]} de {currentYear}
-//           </h3>
-//         </div>
-//         <div className="divide-y divide-gray-200">
-//           {dayEvents.map(event => (
-//             <div 
-//               key={event.id} 
-//               className="p-3 hover:bg-gray-100 cursor-pointer"
-//               onClick={() => showEventDetails(event)}
-//             >
-//               <div className="flex items-center justify-between">
-//                 <h4 className="font-medium text-sky-800">{event.title}</h4>
-//                 <span className={`px-2 py-1 rounded-full text-xs text-white ${categories[event.category].color}`}>
-//                   {categories[event.category].name}
-//                 </span>
-//               </div>
-//               <p className="text-sm text-gray-600 mt-1">{event.time} - {event.location}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   return (
-//     <ScrollAnimation>
-//     <section id="calendario" className="py-20 bg-gradient-to-b from-sky-50 to-white mx-auto p-20 w-screen">
-//       <div className="mb-8 text-center">
-//         <h1 className="text-4xl font-bold text-center mb-8 text-sky-800">Calendario de Actividades RSE</h1>
-//         <p className="text-gray-600">Responsabilidad Social Empresarial</p>
-//       </div>
-      
-//       <div className="flex justify-between items-center mb-4">
-//         <div className="flex items-center">
-//           <Calendar className="mr-2" size={20} />
-//           <h2 className="text-xl font-semibold">
-//             {monthNames[currentMonth]} {currentYear}
-//           </h2>
-//         </div>
-//         <div className="flex space-x-2">
-//           <button 
-//             onClick={prevMonth}
-//             className="p-2 rounded hover:bg-[#e8c05c]"
-//           >
-//             <ChevronLeft size={20} />
-//           </button>
-//           <button 
-//             onClick={nextMonth}
-//             className="p-2 rounded hover:bg-[#e8c05c]"
-//           >
-//             <ChevronRight size={20} />
-//           </button>
-//         </div>
-//       </div>
-      
-//       <div className="mb-6">
-//         <div className="grid grid-cols-7">
-//           {dayNames.map(day => (
-//             <div key={day} className="text-center p-2 font-semibold text-gray-800">
-//               {day}
-//             </div>
-//           ))}
-//         </div>
-//         <div className="grid grid-cols-7">
-//           {renderCalendarDays()}
-//         </div>
-//       </div>
-      
-//       {selectedDay && <EventsList />}
-      
-//       <div className="mt-6">
-//         <h3 className="text-lg font-semibold mb-2 text-sky-800">Categorías</h3>
-//         <div className="flex flex-wrap gap-2">
-//           {Object.entries(categories).map(([key, category]) => (
-//             <div key={key} className="flex items-center">
-//               <div className={`w-4 h-4 rounded ${category.color} mr-2`}></div>
-//               <span className="text-sm text-gray-800 mr-5">{category.name}</span>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-      
-//       {showModal && <EventModal />}
-//     </section>
-//     </ScrollAnimation>
-//   );
-// };
-
 interface Event {
   id: number;
   title: string;
@@ -1418,6 +1079,7 @@ interface Event {
   category: string;
   date: Date;
   location: string;
+  image: string;
   time: string;
 }
 
@@ -1442,7 +1104,7 @@ const CalendarRSE = () => {
   };
 
   // Eventos para la demostración
-  const events: Event[]= [
+  const events: Event[] = [
     {
       id: 1,
       title: "Taller de Alimentación Animal",
@@ -1450,6 +1112,7 @@ const CalendarRSE = () => {
       category: "capacitacion",
       date: new Date("2025-03-05T05:00:00.000"),
       location: "Centro Comunitario",
+      image: "/events/Designer.webp",
       time: "10:00 - 12:00"
     },
     {
@@ -1459,6 +1122,7 @@ const CalendarRSE = () => {
       category: "capacitacion",
       date: new Date("2025-04-07T05:00:00.000"),
       location: "Auditorio Principal",
+      image: "/events/expertos.webp",
       time: "15:00 - 17:00"
     },
     {
@@ -1468,6 +1132,7 @@ const CalendarRSE = () => {
       category: "sostenibilidad",
       date: new Date("2025-03-08T05:00:00.000"),
       location: "Plaza Central",
+      image: "/events/reciclaje.webp",
       time: "09:00 - 18:00"
     },
     {
@@ -1477,6 +1142,7 @@ const CalendarRSE = () => {
       category: "sostenibilidad",
       date: new Date("2025-03-10T05:00:00.000"),
       location: "Salón Verde",
+      image: "/events/ecologico.webp",
       time: "14:00 - 16:00"
     },
     {
@@ -1486,6 +1152,7 @@ const CalendarRSE = () => {
       category: "apoyo",
       date: new Date("2025-04-16T05:00:00.000"),
       location: "Tienda Principal",
+      image: "/events/descuentos.webp",
       time: "Todo el día"
     },
     {
@@ -1495,6 +1162,7 @@ const CalendarRSE = () => {
       category: "apoyo",
       date: new Date("2025-03-20T05:00:00.000"),
       location: "Centro de Capacitación",
+      image: "/events/digital.webp",
       time: "11:00 - 13:00"
     },
     {
@@ -1504,6 +1172,7 @@ const CalendarRSE = () => {
       category: "sostenibilidad",
       date: new Date("2025-03-29T05:00:00.000"),
       location: "Granja Modelo",
+      image: "/events/agricultores.webp",
       time: "09:00 - 12:00"
     },
     {
@@ -1513,6 +1182,7 @@ const CalendarRSE = () => {
       category: "apoyo",
       date: new Date("2025-04-23T05:00:00.000"),
       location: "Sala de Conferencias",
+      image: "/events/asesoramiento.webp",
       time: "16:00 - 18:00"
     }
   ];
@@ -1562,9 +1232,9 @@ const CalendarRSE = () => {
 
   // Obtener eventos para un día específico
   const getEventsForDay = (day: number) => {
-    return events.filter(event => 
-      event.date.getDate() === day && 
-      event.date.getMonth() === currentMonth && 
+    return events.filter(event =>
+      event.date.getDate() === day &&
+      event.date.getMonth() === currentMonth &&
       event.date.getFullYear() === currentYear
     );
   };
@@ -1579,14 +1249,14 @@ const CalendarRSE = () => {
   const renderCalendarDays = () => {
     const daysInMonth = getDaysInMonth(currentMonth, currentYear);
     const firstDayOfMonth = getFirstDayOfMonth(currentMonth, currentYear);
-    
+
     const days = [];
-    
+
     // Días vacíos al inicio
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(
-        <motion.div 
-          key={`empty-${i}`} 
+        <motion.div
+          key={`empty-${i}`}
           className="h-24 border border-gray-400"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1594,16 +1264,16 @@ const CalendarRSE = () => {
         ></motion.div>
       );
     }
-    
+
     // Días del mes
     for (let day = 1; day <= daysInMonth; day++) {
       const dayEvents = getEventsForDay(day);
       const isSelected = selectedDay === day;
       const delay = (firstDayOfMonth + day) * 0.02;
-      
+
       days.push(
-        <motion.div 
-          key={day} 
+        <motion.div
+          key={day}
           className={`h-24 border border-gray-400 p-1 overflow-hidden ${isSelected ? 'bg-[#e8c05c] opacity-80' : ''}`}
           onClick={() => setSelectedDay(day)}
           initial={{ opacity: 0, scale: 0.9 }}
@@ -1614,7 +1284,7 @@ const CalendarRSE = () => {
           <div className="font-semibold text-gray-800">{day}</div>
           <div className="space-y-1 mt-1">
             {dayEvents.slice(0, 2).map((event, index) => (
-              <motion.div 
+              <motion.div
                 key={event.id}
                 className={`text-xs p-1 rounded cursor-pointer text-white truncate ${categories[event.category].color}`}
                 onClick={(e) => {
@@ -1630,7 +1300,7 @@ const CalendarRSE = () => {
               </motion.div>
             ))}
             {dayEvents.length > 2 && (
-              <motion.div 
+              <motion.div
                 className="text-xs text-gray-700 cursor-pointer flex items-center"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -1649,102 +1319,130 @@ const CalendarRSE = () => {
         </motion.div>
       );
     }
-    
+
     return days;
   };
 
+
+  const addToCalendar = (event: Event) => {
+    // Implementar lógica para agregar al calendario
+    const startTime = new Date(event.date);
+    const endTime = new Date(startTime.getTime() + 2 * 60 * 60 * 1000); // 2 horas por defecto
+
+    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&dates=${startTime.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}/${endTime.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}`;
+
+    window.open(calendarUrl, '_blank');
+  };
+
+  const shareEvent = (event: Event) => {
+    // Implementar lógica para compartir
+    if (navigator.share) {
+      navigator.share({
+        title: event.title,
+        text: event.description,
+        url: window.location.href,
+      }).catch(console.error);
+    }
+  };
   // Modal para mostrar los detalles del evento
   const EventModal = () => {
     if (!selectedEvent) return null;
-    
+
     return (
       <AnimatePresence>
         {showModal && (
-          <motion.div 
-            className="fixed inset-0 flex items-center justify-center z-50 bg-[#c2c2c290]"
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowModal(false)}
           >
-            <motion.div 
-              className="bg-white rounded-lg p-6 max-w-md w-full"
+            <motion.div
+              className="relative bg-white rounded-2xl max-w-4xl w-full shadow-2xl"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center mb-4">
-                <motion.h2 
-                  className="text-xl font-bold text-sky-800"
-                  initial={{ x: -10, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  {selectedEvent.title}
-                </motion.h2>
-                <motion.button 
-                  className="text-gray-500 hover:text-gray-700"
-                  onClick={() => setShowModal(false)}
-                  whileHover={{ scale: 1.2, rotate: 90 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  ✕
-                </motion.button>
-              </div>
-              
-              <motion.div 
-                className="mb-4"
-                initial={{ y: -10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <span className={`px-2 py-1 rounded text-xs text-white ${categories[selectedEvent.category].color}`}>
-                  {categories[selectedEvent.category].name}
-                </span>
-              </motion.div>
-              
-              <motion.p 
-                className="mb-4 text-gray-700"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                {selectedEvent.description}
-              </motion.p>
-              
-              <motion.div 
-                className="grid grid-cols-2 gap-2 text-sm"
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <div>
-                  <strong className="block text-gray-500">Fecha:</strong>
-                  <span className="text-gray-800">{selectedEvent.date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                </div>
-                <div>
-                  <strong className="block text-gray-500">Hora:</strong>
-                  <span className="text-gray-800">{selectedEvent.time}</span>
-                </div>
-                <div>
-                  <strong className="block text-gray-500">Ubicación:</strong>
-                  <span className="text-gray-800">{selectedEvent.location}</span>
-                </div>
-              </motion.div>
-              
-              <motion.button 
-                className="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+              <button
                 onClick={() => setShowModal(false)}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="absolute right-4 top-4 text-gray-500 hover:text-gray-700 z-10"
               >
-                Cerrar
-              </motion.button>
+                <X className="w-6 h-6" />
+              </button>
+
+              <div className="grid md:grid-cols-2 gap-8 p-6">
+                <div className="space-y-4">
+                  <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100">
+                    <Image
+                      src={selectedEvent.image}
+                      alt={selectedEvent.title}
+                      width={500}
+                      height={500}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className={`absolute top-4 right-4 ${categories[selectedEvent.category].color} text-white px-3 py-1 rounded-full font-medium`}>
+                      {categories[selectedEvent.category].name}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-stone-600">
+                        <Calendar className="w-5 h-5" />
+                        <span>{selectedEvent.date.toLocaleDateString('es-ES', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric'
+                        })}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-stone-600">
+                        <Clock className="w-5 h-5" />
+                        <span>{selectedEvent.time}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-stone-600">
+                        <MapPin className="w-5 h-5" />
+                        <span>{selectedEvent.location}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h2 className="text-3xl font-bold text-stone-800 mb-2">{selectedEvent.title}</h2>
+                    <span className={`inline-block px-3 py-1 rounded-full text-sm text-white ${categories[selectedEvent.category].color}`}>
+                      {categories[selectedEvent.category].name}
+                    </span>
+                  </div>
+
+                  <div className="space-y-4">
+                    <p className="text-gray-600 leading-relaxed">{selectedEvent.description}</p>
+
+                    <div className="border-t border-b border-gray-100 py-4">
+                      <div className="flex items-center gap-2">
+                        <Info className="w-5 h-5 text-[#e8c05c]" />
+                        <span className="text-stone-600">Información adicional del evento</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <button onClick={() => addToCalendar(selectedEvent)} className="w-full bg-[#e8c05c] text-stone-800 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#e8c05c]/90 transition-colors">
+                        <Calendar className="w-5 h-5" />
+                        <span>Agregar a mi calendario</span>
+                      </button>
+
+                      <button onClick={() => shareEvent(selectedEvent)} className="w-full border-2 border-[#e8c05c] text-stone-800 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#e8c05c]/10 transition-colors">
+                        <Share className="w-5 h-5" />
+                        <span>Compartir evento</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -1755,9 +1453,9 @@ const CalendarRSE = () => {
   // Lista de eventos para el día seleccionado
   const EventsList = () => {
     if (!selectedDay) return null;
-    
+
     const dayEvents = getEventsForDay(selectedDay);
-    
+
     return (
       <motion.div
         initial={{ height: 0, opacity: 0 }}
@@ -1766,7 +1464,7 @@ const CalendarRSE = () => {
         transition={{ duration: 0.3 }}
       >
         {dayEvents.length === 0 ? (
-          <motion.div 
+          <motion.div
             className="p-4 bg-gray-50 rounded-lg"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -1775,13 +1473,13 @@ const CalendarRSE = () => {
             <p className="text-center text-gray-600">No hay eventos programados para este día.</p>
           </motion.div>
         ) : (
-          <motion.div 
+          <motion.div
             className="bg-gray-50 rounded-lg overflow-hidden"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div 
+            <motion.div
               className="p-3 bg-amber-700"
               initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -1794,8 +1492,8 @@ const CalendarRSE = () => {
             <div className="divide-y divide-gray-200">
               <AnimatePresence>
                 {dayEvents.map((event, index) => (
-                  <motion.div 
-                    key={event.id} 
+                  <motion.div
+                    key={event.id}
                     className="p-3 hover:bg-gray-100 cursor-pointer"
                     onClick={() => showEventDetails(event)}
                     initial={{ x: -20, opacity: 0 }}
@@ -1823,134 +1521,140 @@ const CalendarRSE = () => {
 
   return (
     <ScrollAnimation>
-      <section id="calendario" className="py-20 bg-gradient-to-b from-sky-50 to-white mx-auto px-80 w-screen">
-        <motion.div 
-          className="mb-8 text-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <motion.h1 
-            className="text-4xl font-bold text-center mb-8 text-sky-800"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+      <section id="calendario" className="py-20 bg-gradient-to-b from-sky-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="mb-12 text-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
           >
-            Calendario de Actividades RSE
-          </motion.h1>
-          <motion.p 
-            className="text-gray-600"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            Responsabilidad Social Empresarial
-          </motion.p>
-        </motion.div>
-        
-        <motion.div 
-          className="flex justify-between items-center mb-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <div className="flex items-center">
+            <motion.h2
+              className="text-4xl font-bold text-center mb-4 text-stone-800"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              Calendario de Actividades
+            </motion.h2>
+            <motion.p
+              className="text-xl text-stone-600"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Responsabilidad Social Empresarial
+            </motion.p>
+          </motion.div>
+
+          <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8">
             <motion.div
-              whileHover={{ rotate: 15 }}
-              transition={{ duration: 0.2 }}
+              className="flex justify-between items-center mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
             >
-              <Calendar className="mr-2 text-[#e8c05c]" size={20} />
+              <div className="flex items-center">
+                <motion.div
+                  whileHover={{ rotate: 15 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Calendar className="mr-2 text-[#e8c05c]" size={20} />
+                </motion.div>
+                <h3 className="text-lg sm:text-xl font-semibold text-stone-800">
+                  {monthNames[currentMonth]} {currentYear}
+                </h3>
+              </div>
+              <div className="flex space-x-2">
+                <motion.button
+                  onClick={prevMonth}
+                  className="p-2 rounded-lg hover:bg-[#e8c05c]/10 text-[#e8c05c] transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ChevronLeft size={20} />
+                </motion.button>
+                <motion.button
+                  onClick={nextMonth}
+                  className="p-2 rounded-lg hover:bg-[#e8c05c]/10 text-[#e8c05c] transition-colors"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ChevronRight size={20} />
+                </motion.button>
+              </div>
             </motion.div>
-            <h2 className="text-xl font-semibold text-gray-800">
-              {monthNames[currentMonth]} {currentYear}
-            </h2>
+
+            <div className="overflow-x-auto">
+              <div className="min-w-full">
+                <div className="grid grid-cols-7 mb-2">
+                  {dayNames.map((day, index) => (
+                    <motion.div
+                      key={day}
+                      className="text-center p-2 font-medium text-stone-600 text-sm sm:text-base"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                    >
+                      {day}
+                    </motion.div>
+                  ))}
+                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`${currentMonth}-${currentYear}`}
+                    className="grid grid-cols-7 gap-1 sm:gap-2"
+                    initial={{ x: slideDirection === 'right' ? 100 : -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: slideDirection === 'right' ? -100 : 100, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {renderCalendarDays()}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
-          <div className="flex space-x-2">
-            <motion.button 
-              onClick={prevMonth}
-              className="p-2 rounded hover:bg-[#e8c05c]"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronLeft size={20} className="text-gray-800"/>
-            </motion.button>
-            <motion.button 
-              onClick={nextMonth}
-              className="p-2 rounded hover:bg-[#e8c05c]"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronRight size={20} className="text-gray-800"/>
-            </motion.button>
-          </div>
-        </motion.div>
-        
-        <motion.div className="mb-6">
-          <div className="grid grid-cols-7">
-            {dayNames.map((day, index) => (
-              <motion.div 
-                key={day} 
-                className="text-center p-2 font-semibold text-gray-800"
-                initial={{ opacity: 0, y: -10 }}
+
+          <AnimatePresence>
+            {selectedDay && (
+              <motion.div
+                className="mt-6"
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index }}
+                exit={{ opacity: 0, y: -20 }}
               >
-                {day}
+                <EventsList />
               </motion.div>
-            ))}
-          </div>
-          <AnimatePresence mode="wait">
-            <motion.div 
-              key={`${currentMonth}-${currentYear}`}
-              className="grid grid-cols-7"
-              initial={{ 
-                x: slideDirection === 'right' ? 100 : -100, 
-                opacity: 0 
-              }}
-              animate={{ 
-                x: 0, 
-                opacity: 1 
-              }}
-              exit={{ 
-                x: slideDirection === 'right' ? -100 : 100, 
-                opacity: 0 
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              {renderCalendarDays()}
-            </motion.div>
+            )}
           </AnimatePresence>
-        </motion.div>
-        
-        <AnimatePresence>
-          {selectedDay && <EventsList />}
-        </AnimatePresence>
-        
-        <motion.div 
-          className="mt-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <h3 className="text-lg font-semibold mb-2 text-sky-800">Categorías</h3>
-          <div className="flex flex-wrap gap-2">
-            {Object.entries(categories).map(([key, category], index) => (
-              <motion.div 
-                key={key} 
-                className="flex items-center"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 + (index * 0.1) }}
-                whileHover={{ scale: 1.05, x: 5 }}
-              >
-                <div className={`w-4 h-4 rounded ${category.color} mr-2`}></div>
-                <span className="text-sm text-gray-800 mr-5">{category.name}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-        
-        {showModal && <EventModal />}
+
+          <motion.div
+            className="mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <h3 className="text-lg font-semibold mb-4 text-stone-800">Categorías</h3>
+            <div className="flex flex-wrap gap-3">
+              {Object.entries(categories).map(([key, category], index) => (
+                <motion.div
+                  key={key}
+                  className="flex items-center bg-white px-3 py-2 rounded-lg shadow-sm"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7 + (index * 0.1) }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className={`w-3 h-3 rounded-full ${category.color} mr-2`}></div>
+                  <span className="text-sm text-stone-600">{category.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+        <EventModal />
+        {/* {showModal && <EventModal />} */}
       </section>
     </ScrollAnimation>
   );
@@ -1981,7 +1685,7 @@ const App = () => {
       name: "Alimento para Gatos",
       description: "Con proteínas de alta calidad",
       price: 1599,
-      image: "/gato.png",
+      image: "/products/gato.webp",
     },
     {
       id: 3,
@@ -2019,7 +1723,7 @@ const App = () => {
       </section>
 
       <OfferSection />
-      
+
       <AboutUs />
       <CalendarRSE />
       <BusinessHours />
