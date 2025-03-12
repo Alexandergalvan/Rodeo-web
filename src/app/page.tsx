@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Product, ProductDetailProps } from "./types/types";
+import { CartScreenProps, Product, ProductCardProps, ProductDetailProps } from "./types/types";
 
 const ScrollAnimation = ({ children, className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -358,9 +358,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ isOpen, onClose, product 
   );
 };
 
-const CartScreen = ({ isOpen, onClose }) => {
+const CartScreen: React.FC<CartScreenProps> = ({ isOpen, onClose }) => {
   const [cartItems] = useState([
-    // Ejemplo de items en el carrito
     {
       id: 1,
       name: "Alimento Premium para Perros",
@@ -368,7 +367,6 @@ const CartScreen = ({ isOpen, onClose }) => {
       quantity: 2,
       image: "/perro.png",
     },
-    // ... más items
   ]);
 
   if (!isOpen) return null;
@@ -495,7 +493,7 @@ const CartScreen = ({ isOpen, onClose }) => {
   );
 };
 
-const ProductCard = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -1663,6 +1661,7 @@ const App = () => {
       description: "Nutrición completa y balanceada",
       price: 1999,
       image: "/products/perro.png",
+      discount: "0%"
     },
     {
       id: 2,
@@ -1670,6 +1669,7 @@ const App = () => {
       description: "Con proteínas de alta calidad",
       price: 1599,
       image: "/products/gato.webp",
+      discount: "0%"
     },
     {
       id: 3,
@@ -1677,6 +1677,7 @@ const App = () => {
       description: "Mezcla especial de heno",
       price: 2499,
       image: "/products/caballo.jpg",
+      discount: "0%"
     },
   ];
 
