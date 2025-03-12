@@ -16,13 +16,15 @@ import {
   ChevronLeft,
   Info,
   Share,
+  ArrowDown,
 } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { Product } from "./types/types";
 
 const ScrollAnimation = ({ children, className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [ref, setRef] = useState(null);
+  const [ref, setRef] = useState<HTMLDivElement>();
 
   useEffect(() => {
     if (!ref) return;
@@ -167,7 +169,6 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
 
 const Hero = () => (
   <section id="inicio" className="relative h-screen overflow-hidden">
-    {/* Fondo con imagen */}
     <div className="absolute inset-0">
       <Image
         src="/hero-bg.jpg"
@@ -177,16 +178,12 @@ const Hero = () => (
         height={1080}
         priority
       />
-      {/* Overlay oscuro para mejorar la legibilidad */}
       <div className="absolute inset-0 bg-black/40"></div>
-
-      {/* Patrón de fondo animado */}
       <div className="absolute inset-0 opacity-10 bg-grid-pattern animate-grid"></div>
     </div>
 
     <FloatingParticles />
 
-    {/* Círculos decorativos con opacidad reducida */}
     <div className="absolute inset-0 overflow-hidden">
       <div className="absolute -top-20 -left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-blob"></div>
       <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-[#e8c05c]/20 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
@@ -194,9 +191,7 @@ const Hero = () => (
     </div>
 
     <div className="relative h-full flex flex-col items-center justify-center text-center">
-      {/* Contenedor principal con efecto de cristal */}
       <div className="max-w-4xl px-6 py-12 mx-4 backdrop-blur-sm bg-black/20 rounded-2xl border border-white/20 shadow-2xl">
-        {/* Logo animado */}
         <div className="mb-12 animate-bounce-slow">
           <div className="relative w-32 h-32 mx-auto">
             <Image
@@ -211,7 +206,6 @@ const Hero = () => (
           </div>
         </div>
 
-        {/* Título con animación de escritura */}
         <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 tracking-tight">
           <span className="inline-block animate-fade-in-up bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80"
             style={{ animationDelay: "0.2s" }}>
@@ -223,14 +217,12 @@ const Hero = () => (
           </span>
         </h1>
 
-        {/* Subtítulo con efecto de desvanecimiento */}
         <p className="text-xl md:text-2xl text-white/90 mb-8 animate-fade-in-up font-light"
           style={{ animationDelay: "0.6s" }}>
           Tu mejor opción en{" "}
           <span className="font-semibold text-[#e8c05c]">alimentación animal</span>
         </p>
 
-        {/* Botones de acción */}
         <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up"
           style={{ animationDelay: "0.8s" }}>
           <a
@@ -252,17 +244,14 @@ const Hero = () => (
         </div>
       </div>
 
-      {/* Indicador de scroll */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-8 h-12 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-white/60 rounded-full animate-scroll"></div>
-        </div>
+        <ArrowDown size={30} color="white"/>
       </div>
     </div>
   </section>
 );
 
-const ProductDetail = ({ isOpen, onClose, product }) => {
+const ProductDetail: React.FC<ProductDetailProps> = ({ isOpen, onClose, product }) => {
   if (!isOpen) return null;
 
   return (
@@ -281,7 +270,9 @@ const ProductDetail = ({ isOpen, onClose, product }) => {
           <div className="grid md:grid-cols-2 gap-8 p-6">
             <div className="space-y-4">
               <div className="relative aspect-square rounded-xl overflow-hidden">
-                <img
+                <Image
+                width={1000}
+                height={1000}
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover"
@@ -295,7 +286,9 @@ const ProductDetail = ({ isOpen, onClose, product }) => {
               <div className="grid grid-cols-4 gap-2">
                 {[...Array(4)].map((_, i) => (
                   <div key={i} className="aspect-square rounded-lg overflow-hidden">
-                    <img
+                    <Image
+                      width={1000}
+                      height={1000}
                       src={product.image}
                       alt={`${product.name} vista ${i + 1}`}
                       className="w-full h-full object-cover hover:scale-110 transition-transform cursor-pointer"
@@ -443,7 +436,9 @@ const CartScreen = ({ isOpen, onClose }) => {
                         whileHover={{ scale: 1.02 }}
                       >
                         <div className="w-24 h-24 rounded-lg overflow-hidden bg-gray-100">
-                          <img
+                          <Image
+                            width={1000}
+                            height={1000}
                             src={item.image}
                             alt={item.name}
                             className="w-full h-full object-cover"
@@ -501,7 +496,7 @@ const CartScreen = ({ isOpen, onClose }) => {
 };
 
 const ProductCard = ({ product }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
   return (
@@ -512,7 +507,9 @@ const ProductCard = ({ product }) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="relative h-64 overflow-hidden">
-          <img
+          <Image
+          width={1000}
+          height={1000}
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -658,23 +655,15 @@ const OfferSection = () => {
       description: "Lleva dos bolsas y paga una en marcas seleccionadas",
       validUntil: "31/02/2025",
       discount: "50%",
-      image: "/api/placeholder/400/300",
+      image: "/products/perro.png",
     },
     {
       id: 2,
-      title: "Pack Económico Mensual",
-      description: "30% de descuento en el pack de alimentos para todo el mes",
-      validUntil: "31/02/2025",
-      discount: "30%",
-      image: "/api/placeholder/400/300",
-    },
-    {
-      id: 3,
       title: "Descuento en Accesorios",
       description: "Todos los accesorios con 25% de descuento",
       validUntil: "31/02/2025",
       discount: "25%",
-      image: "/api/placeholder/400/300",
+      image: "/products/accesorios.webp",
     },
   ];
 
@@ -701,7 +690,9 @@ const OfferSection = () => {
               <ScrollAnimation className="h-full">
                 <div className="bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 group-hover:shadow-2xl h-full transform group-hover:-translate-y-2">
                   <div className="relative">
-                    <img
+                    <Image
+                      width={1000}
+                      height={1000}
                       src={offer.image}
                       alt={offer.title}
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
@@ -756,7 +747,6 @@ const BusinessHours = () => {
         </ScrollAnimation>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Horarios */}
           <ScrollAnimation className="transform hover:scale-105 transition-all duration-300">
             <div className="bg-white p-8 rounded-xl shadow-lg border-2 border-sky-100 hover:border-[#e8c05c] transition-colors duration-300">
               <div className="flex items-center gap-3 mb-6">
@@ -792,7 +782,6 @@ const BusinessHours = () => {
             </div>
           </ScrollAnimation>
 
-          {/* Ubicación */}
           <ScrollAnimation className="transform hover:scale-105 transition-all duration-300">
             <div className="bg-white p-8 rounded-xl shadow-lg border-2 border-sky-100 hover:border-[#e8c05c] transition-colors duration-300">
               <div className="flex items-center gap-3 mb-6">
@@ -810,10 +799,9 @@ const BusinessHours = () => {
                 <ScrollAnimation className="space-y-2">
                   <p className="flex items-center gap-2 text-sky-900">
                     <MapPin className="text-sky-600 w-5 h-5" />
-                    <span>Av. Principal 123, Buenos Aires</span>
+                    <span>Flores Magón, 87506 Valle Hermoso, Tamps.</span>
                   </p>
-                  <p className="text-sky-700 pl-7">Entre calle A y calle B</p>
-                  <p className="text-sky-700 pl-7">Barrio Centro</p>
+                  <p className="text-sky-700 pl-7">Entre Lucio Blanco y 18 de Marzo</p>
                 </ScrollAnimation>
 
                 <ScrollAnimation>
@@ -831,7 +819,6 @@ const BusinessHours = () => {
           </ScrollAnimation>
         </div>
 
-        {/* Información adicional */}
         <ScrollAnimation className="mt-12">
           <div className="text-center bg-sky-800 text-white p-6 rounded-xl transform hover:scale-105 transition-all duration-300">
             <p className="text-lg">
@@ -851,7 +838,7 @@ const BusinessHours = () => {
 };
 
 const FloatingCart = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen] = useState(false);
   const [showCartScreen, setShowCartScreen] = useState(false);
   const [cartItems] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
@@ -870,7 +857,6 @@ const FloatingCart = () => {
               <p className="text-sky-800 text-center">Tu carrito está vacío</p>
             ) : (
               <div className="space-y-2">
-                {/* Aquí irían los items del carrito */}
               </div>
             )}
           </div>
@@ -913,7 +899,6 @@ const FloatingCart = () => {
   );
 };
 
-// Componente Scroll To Top
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -1654,7 +1639,6 @@ const CalendarRSE = () => {
           </motion.div>
         </div>
         <EventModal />
-        {/* {showModal && <EventModal />} */}
       </section>
     </ScrollAnimation>
   );
@@ -1672,13 +1656,13 @@ const App = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const products = [
+  const products: Product[] = [
     {
       id: 1,
       name: "Alimento Premium para Perros",
       description: "Nutrición completa y balanceada",
       price: 1999,
-      image: "/perro.png",
+      image: "/products/perro.png",
     },
     {
       id: 2,
@@ -1692,7 +1676,7 @@ const App = () => {
       name: "Forraje para Caballos",
       description: "Mezcla especial de heno",
       price: 2499,
-      image: "/caballo.jpg",
+      image: "/products/caballo.jpg",
     },
   ];
 
