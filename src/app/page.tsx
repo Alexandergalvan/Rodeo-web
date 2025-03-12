@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Product } from "./types/types";
+import { Product, ProductDetailProps } from "./types/types";
 
 const ScrollAnimation = ({ children, className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
