@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   MenuIcon,
   X,
@@ -20,26 +20,26 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { CartScreenProps, Product, ProductCardProps, ProductDetailProps } from "./types/types";
+import { CartScreenProps, Product, ProductCardProps, ProductDetailProps, ScrollAnimationProps } from "./types/types";
 
-const ScrollAnimation = ({ children, className = "" }) => {
+const ScrollAnimation: React.FC<ScrollAnimationProps> = ({ children, className }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [ref, setRef] = useState<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!ref) return;
+    if (!ref.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
       { threshold: 0.1 }
     );
 
-    observer.observe(ref);
+    observer.observe(ref?.current);
     return () => observer.disconnect();
   }, [ref]);
 
   return (
     <div
-      ref={setRef}
+      ref={ref}
       className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         } ${className}`}
     >

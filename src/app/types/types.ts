@@ -1,4 +1,3 @@
-
 export interface Product {
     id: number;
     name: string;
@@ -6,20 +5,24 @@ export interface Product {
     price: number;
     image: string;
     discount: string;
-}
+};
 
 export interface ProductDetailProps {
     isOpen: boolean;
     onClose: () => void;
     product: Product;
-  }
+};
   
 export interface ProductCardProps {
     product: Product;
-  }
-
+};
   
 export interface CartScreenProps {
     isOpen: boolean;
     onClose: () => void;
-  }
+};
+
+export interface ScrollAnimationProps {
+    children: React.ReactNode;
+    className?: string;
+};
