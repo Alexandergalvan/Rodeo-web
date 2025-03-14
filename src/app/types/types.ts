@@ -26,3 +26,23 @@ export interface ScrollAnimationProps {
     children: React.ReactNode;
     className?: string;
 };
+
+export interface HeaderProps {
+  isScrolled: boolean;
+}
+
+export interface Event {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  date: Date;
+  location: string;
+  image: string;
+  time: string;
+}
+
+export interface Category {
+  name: string;
+  color: string;
+}
